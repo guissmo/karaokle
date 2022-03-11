@@ -1,0 +1,136 @@
+body {
+	font-family: 'Roboto Condensed', sans-serif;
+	font-size: 10pt;
+	color: #42444f;
+}
+
+div#main {
+	margin-left: auto;
+	margin-right: auto;
+	width: 600px;
+}
+
+div#navtop{
+	margin-bottom: -30pt;
+	border-radius: 5px 5px 0px 0px;
+	background-color: #5cbfc2;
+	color: white;
+	box-shadow: 0 0 0 1px black, 0 0 0 2px #CCC;
+	width: 100px;
+	margin-left: auto;
+	margin-right: 10px;
+	text-align: center;
+	padding-bottom: 2px;
+}
+
+div#title {
+	margin-top: 30pt;
+	margin-bottom: 30pt;
+}
+
+div#content {
+	margin-top: 10pt;
+	margin-bottom: 10pt;
+	margin-left: auto;
+	margin-right: auto;
+	width: 500px;
+}
+
+#title h1 {
+	font-size: 24pt;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	text-transform: uppercase;
+	font-style: normal;
+	color: white;
+}
+
+h2 {
+	font-size: 18pt;
+	text-transform: uppercase;
+	font-style: normal;
+	color: #14215e;
+	text-shadow: 1px 1px #71b8e3;
+}
+
+
+span#artist-year{
+	font-size: 12pt;
+	color: #71b8e3;
+	font-style: italic;
+	text-transform: uppercase;
+}
+
+div#title {
+	color: #3883b1;
+	font-family: 'Roboto Condensed', sans-serif;
+	font-size: 8pt;
+	line-height: 1;
+	border: 0px gray solid;
+	border-radius: 10px;
+	text-align: center;
+	width: 100%;
+	background: rgb(171,187,219);
+	background: linear-gradient(180deg, rgba(171,187,219,1) 0%, rgba(71,108,183,1) 20%, rgba(25,49,132,1) 50%, rgba(20,33,94,1) 80%, rgba(0,0,0,1) 100%);
+	box-shadow: 0 0 0 1px black, 0 0 0 2px #CCC;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	padding-left: 4px;
+	padding-right: 4px;
+}
+
+p.lyric, input {
+	font-family: 'Roboto Condensed', sans-serif;
+	font-size: 24pt;
+	text-transform: uppercase;
+	border: 0px gray solid;
+	border-radius: 10px;
+	text-align: center;
+	width: 90%;
+	background: rgb(171,187,219);
+	background: linear-gradient(180deg, rgba(171,187,219,1) 0%, rgba(71,108,183,1) 20%, rgba(25,49,132,1) 50%, rgba(20,33,94,1) 80%, rgba(0,0,0,1) 100%);
+	text-shadow: 1px 1px black;
+	box-shadow: 0 0 0 1px black, 0 0 0 2px #CCC;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	padding-left: 4px;
+	padding-right: 4px;
+	color: white;
+	margin-left: auto;
+	margin-right: auto;
+	opacity: 1
+}
+
+@media only screen and (max-width: 600px) {
+
+  body {
+	font-family: 'Cabin', sans-serif;
+	font-size: 10pt;
+  }
+
+  p.lyric {
+  	font-size: 10pt;
+	width: 100%;
+  }
+
+  div#main {
+	margin-left: auto;
+	margin-right: auto;
+	width: 85%;
+  }
+}
+
+
+.y {
+	 color: #ffda00!important;
+}
+
+.r {
+	 color: #ee0000!important;
+}
+
+.g {
+	 color: #08ff00!important;
+}

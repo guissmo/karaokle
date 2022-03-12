@@ -22,6 +22,7 @@
 	});
 })();
 
+let lesinitiales = "L. I.";
 let blank = `<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>`;
 const maxRounds = stops.length;
 stops.push({
@@ -36,16 +37,22 @@ let gameRunning = false;
 
 function videoPlaying() {
 	if (gameRunning){
-		exitAnswerMode();
-		inputBoxPreview.style.opacity = 0.2;
+		lyricBox.style.opacity = 1;
+		inputBox.style.display = 'none';
+		updateInputPreview();
+		inputBox.blur();
+		bloqueBox.focus();
+		inputBoxPreview.style.display = 'none';
 	}
 }
 
 function refreshGUI() {
-	inputBox.innerHTML = ""
+
+	inputBox.innerHTML = "";
+	inputBoxPreview.style.display = 'none';
 
 	initialsUsed = false;
-	buttonInitiales.innerText = "Les Initiales";
+	buttonInitiales.innerText = lesinitiales;
 
 	updateInputPreview();
 
@@ -53,7 +60,8 @@ function refreshGUI() {
 	bottomNextRound.style.display = 'none';
 
 	for(i = 0; i < maxRounds; i++){
-		roundBox[i].style.opacity = 0.2;
+		roundBox[i].classList.remove("round-active");
+		roundBox[i].classList.add("round-inactive");
 	}
 
 	for(i = 0; i < syncData.length; i++){
@@ -62,7 +70,8 @@ function refreshGUI() {
 		syncData[i].text = text;
 	}
 
-	roundBox[round].style.opacity = 1;
+	roundBox[round].classList.remove("round-inactive");
+	roundBox[round].classList.add("round-active");
 	let lineno = stops[round].update[0];
 	let newstr = stops[round].update[1];
 	syncData[lineno].text = newstr;
@@ -84,6 +93,7 @@ function initiales() {
 
 function startGame() {
 	round = 0;
+	buttonPlay.classList.add("hidden");
 	gameRunning = true;
 	refreshGUI();
 	for(i = 0; i < maxRounds; i++){
@@ -184,11 +194,6 @@ function updateInputPreview() {
 	const realAnswer = wordArrayFromString(stops[round].answer);
 	if(initialsUsed){
 		for(i = 0; i < realAnswer.length; i++){
-			// console.log(realAnswer[i].length)
-			// console.log(realAnswer[i].charAt(0));
-			// console.log(realAnswer[i].charAt(1));
-			// console.log(realAnswer[i]);
-			// console.log();
 			if(realAnswer[i].length == 2 && realAnswer[i].charAt(1) == "'"){
 				newArray[i] = realAnswer[i];
 				console.log(2)
@@ -325,7 +330,6 @@ function teleport() {
 	lyricBox.style.opacity = 1;
 	inputBox.style.display = 'none';
 	inputBoxPreview.style.opacity = 0.2;
-	inputBoxPreview.style.display = 'block';
 	updateInputPreview();
 	inputBox.blur();
 	bloqueBox.focus();
@@ -339,13 +343,11 @@ lines.map((line, index) => {
     timeStr = timeStr.replaceAll('[', '');
     let [minStr, secStr] = timeStr.split(':');
     let time = parseInt(minStr)*60 + parseFloat(secStr)
-    console.log(time)
     syncData.push({'start': time, 'text': text.trim()})
 })
 
 let lyricUpdater = player.addEventListener('timeupdate', function(event) {
 	syncData.forEach((item) => {
-		console.log(item)
 		if (player.currentTime - timeAdjust >= item.start){
 			if (player.currentTime - timeAdjust >= stops[round].time){
 				player.currentTime = stops[round].time + timeAdjust;
@@ -363,6 +365,7 @@ const lyricBox = document.querySelector('.lyric')
 const inputBox = document.querySelector('[name=input]')
 const inputBoxPreview = document.querySelector('.inputPreview')
 const motsBox = document.querySelector('.mots')
+const buttonPlay = document.querySelector('.js-play')
 const bloqueBox = document.querySelector('.bloque')
 const bottomBloque = document.querySelector('.bottom-bloque')
 const bottomNextRound = document.querySelector('.bottom-next-round')

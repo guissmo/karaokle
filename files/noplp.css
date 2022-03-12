@@ -81,7 +81,7 @@ div#title {
 	padding-right: 4px;
 }
 
-p.lyric, span.round, span.mots, input, button, span.inputPreview, span.bloque, .initiales {
+.noplp-box {
 	font-family: 'Roboto Condensed', sans-serif;
 	font-size: 24pt;
 	text-transform: uppercase;
@@ -89,23 +89,52 @@ p.lyric, span.round, span.mots, input, button, span.inputPreview, span.bloque, .
 	border-radius: 10px;
 	text-align: center;
 	width: 90%;
-	background: rgb(171,187,219);
-	background: linear-gradient(180deg, rgba(171,187,219,1) 0%, rgba(71,108,183,1) 20%, rgba(25,49,132,1) 50%, rgba(20,33,94,1) 80%, rgba(0,0,0,1) 100%);
 	text-shadow: 1px 1px black;
 	box-shadow: 0 0 0 1px black, 0 0 0 2px #CCC;
-	padding-top: 4px;
-	padding-bottom: 4px;
+	padding-top: 2px;
+	padding-bottom: 2px;
 	padding-left: 4px;
 	padding-right: 4px;
-	color: white;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+span.round {
+	font-family: 'Roboto Condensed', sans-serif;
+	font-size: 16pt;
+	text-transform: uppercase;
+	border: 0px gray solid;
+	border-radius: 10px;
+	text-align: center;
+	width: 90%;
+	padding: 4px 4px 4px 4px;
+	margin-left: auto;
+	margin-right: auto;
+	background: rgb(119, 119, 119);
+	color: rgb(255, 255, 255);
+	height: 24px;
+	vertical-align: middle;
+}
+
+.hidden {
+	display: none;
+}
+
+p {
+	margin-top: 20px;
+	margin-bottom: 15px;
+}
+
+p.lyric, span.mots, input, span.inputPreview, span.bloque, .initiales {
+	background: rgb(171,187,219);
+	background: linear-gradient(180deg, rgba(171,187,219,1) 0%, rgba(71,108,183,1) 20%, rgba(25,49,132,1) 50%, rgba(20,33,94,1) 80%, rgba(0,0,0,1) 100%);
+	color: white;
 	opacity: 1
 }
 
-span.inputPreview {
-	display: inline-block;
+span.inputPreview, input {
 	color: #ffda00!important;
+	margin-bottom:15px;
 }
 
 .bloque, .reveal, .next-round, .initiales {
@@ -121,6 +150,21 @@ span.inputPreview {
 .initiales {
 	background: rgb(255, 166, 0)!important;
 }
+
+/* .button-below {
+	border-radius: 50%;
+	width: 70px;
+	height: 50px;
+	font-size: 16px;
+	vertical-align: middle;
+} */
+
+/* .button-below {
+	border-radius: 10px;
+	width: 100px;
+	font-size: 24px;
+	vertical-align: middle;
+} */
 
 .reveal {
 	background: rgb(0, 78, 17)!important;
@@ -139,9 +183,18 @@ span.mots {
 span.round {
 	margin-top: 10px;
 	margin-left: 10px;
+	width: 125px;
+	display: none;
+}
+
+span.round-active {
 	display: inline-block;
-	width: 150px;
-	background: rgb(0, 98, 255);
+	opacity: 1;
+}
+
+span.round-inactive {
+	display: inline-block;
+	opacity: 0.2;
 }
 
 span.spacer {
@@ -162,14 +215,55 @@ button {
 	display: none;
 }
 
-@media only screen and (max-width: 600px) {
+#dummy, #bloq {
+	display: flex;
+	width: 90%;
+	margin-top: 10px;
+}
+
+.button-below {
+	font-family: 'Roboto Condensed', sans-serif;
+	border-radius: 25px;
+	height: 40px;
+	font-size: 16px;
+	vertical-align: middle;
+	border: 0;
+	box-shadow: none;
+	
+}
+
+.small-button {
+	width: 70px;
+	margin-left: 5px;
+	margin-right: 5px;
+	background: rgb(152, 92, 248);
+	color: white;
+}
+
+.med-button {
+	margin-left: 5px;
+	margin-right: 5px;
+	flex: 1 1 auto;
+	background: rgb(48, 180, 192)!important;
+	color: white;
+}
+
+.big-button {
+	margin-left: 2px;
+	margin-right: 2px;
+	flex: 1 1 auto;
+	background: rgb(206, 60, 193)!important;
+	color: white;
+}
+
+@media only screen and (max-width: 800px) {
 
   body {
 	font-family: 'Cabin', sans-serif;
   }
 
-  p.lyric {
-	width: 100%;
+  .noplp-box {
+	width: 90%;
   }
 
   div#main {
@@ -177,6 +271,22 @@ button {
 	margin-right: auto;
 	width: 85%;
   }
+
+  .js-player {
+	  aspect-ratio: 4/3;
+	  width:100%;
+  }
+
+  span.round-active {
+	display: inline-block;
+	opacity: 1;
+  }
+
+  span.round-inactive {
+	width: 20px;
+	font-size: 0;
+  }
+
 }
 
 

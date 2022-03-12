@@ -13,6 +13,7 @@
         <!-- 5RaxWDDo8As -->
         <!-- PJ-KP0fdtxc -->
         <!-- 0J3wIDAaLSU -->
+        <!-- gzLvORW24tw -->
 
 <!-- CONTAINER -->
 <!-- <div id="container"> -->
@@ -20,7 +21,7 @@
 <!-- <div id="main-div"> -->
 <center>
     <h1>NOPLPdle</h1>
-		<div class="player js-player" data-youtube-videoid="gzLvORW24tw"></div>
+		<div class="player js-player hidden" data-youtube-videoid="5RaxWDDo8As"></div>
 		<div>
 		</div>
 <!-- <button class="js-play">Play</button> -->
@@ -36,24 +37,32 @@
 <span class="round round-4">4</span>
 <span class="round round-5">5</span>
 </div>
-<p class="lyric">
+<p class="lyric noplp-box">
 &nbsp;
 </p>
-<div style="margin-bottom:20px;">
-<input class="y" name="input" value="" style="display:none;" onkeypress="check(this)" onblur="exitAnswerMode()"></input>
-<span class="inputPreview" onclick="enterAnswerMode()" style="opacity:0.2;">&nbsp;</span>
+<div>
+<input class="y noplp-box hidden" name="input" value="" style="display:none;" onkeypress="check(this)" onblur="exitAnswerMode()"></input>
+<span class="inputPreview noplp-box hidden" onclick="enterAnswerMode()" style="opacity:0.2;">&nbsp;</span>
 </div>
+    <div id="bloq">
+    <button class="button-below big-button">JE BLOQUE LES PAROLES!</button>
+    </div>
+    <div id="dummy">
+    <button class="button-below small-button">&#9664;&#x25C0;</button>
+    <button class="button-below med-button">LES INITIALES</button>
+    <button class="button-below small-button">&#9654;&#x25B6;</button>
+    </div>
 <div class="bottom-avance">
-<button class="reveal" onclick="teleport()">Avance Rapide</button>
+<button class="reveal button-below" onclick="teleport()">&#9193;</button>
 </div>
 <div class="bottom-bloque">
-<button class="bloque" onclick="this.blur();bloqueLesParoles()">Je bloque les paroles!</button><br>
-<button class="initiales" onclick="initiales()">Les Initiales</button>
-<button class="reveal" onclick="teleport()">Réécouter</button>
+<button class="button-below" onclick="teleport()">&#9194;</button>
+<button class="bloque button-below" onclick="this.blur();bloqueLesParoles()">BLOQUE</button>
+<button class="initiales button-below" onclick="initiales()">L<u>&nbsp;</u> I<u>&nbsp;</u></button>
 </div>
 <div class="bottom-next-round">
-<button class="next-round" onclick="nextRound()">Continue</button><br>
-<button class="reveal" onclick="revealAnswer()">Révéler la Réponse</button><br>
+<button class="next-round button-below" onclick="nextRound()">Continue</button>
+<button class="reveal button-below" onclick="revealAnswer()">Révéler la Réponse</button>
 </div>
 <br>
 </center> 
@@ -91,7 +100,7 @@ Round 5: <font class="g">la</font> <font class="g">guitare</font> <font class="g
 
 		<script src="scripts/html5-youtube.min.js"></script>
         <script src="scripts/remove-diacritics.js"></script>
-        <script src="scripts/jirai.js"></script>
+        <script src="scripts/nuitdefolie.js"></script>
         <script src="scripts/yt-controller.js"></script>
 		<script>
     </script>

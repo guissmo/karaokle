@@ -81,7 +81,7 @@ div#title {
 	padding-right: 4px;
 }
 
-p.lyric, input {
+p.lyric, span.round, span.mots, input, button, span.inputPreview, span.bloque, .initiales {
 	font-family: 'Roboto Condensed', sans-serif;
 	font-size: 24pt;
 	text-transform: uppercase;
@@ -103,15 +103,72 @@ p.lyric, input {
 	opacity: 1
 }
 
+span.inputPreview {
+	display: inline-block;
+	color: #ffda00!important;
+}
+
+.bloque, .reveal, .next-round, .initiales {
+	margin-top: 10px;
+	display: inline-block;
+	width: 400px;
+	background: rgb(78, 0, 114);
+	text-shadow: 0 0;
+	box-shadow: 0 0 0 0;
+	border: 0;
+}
+
+.initiales {
+	background: rgb(255, 166, 0)!important;
+}
+
+.reveal {
+	background: rgb(0, 78, 17)!important;
+}
+
+.next-round {
+	background: rgb(78, 0, 114)!important;
+}
+
+span.mots {
+	margin-top: 10px;
+	display: inline-block;
+	width: 150px;
+}
+
+span.round {
+	margin-top: 10px;
+	margin-left: 10px;
+	display: inline-block;
+	width: 150px;
+	background: rgb(0, 98, 255);
+}
+
+span.spacer {
+	display: inline-block;
+	width: 1%;
+}
+
+input {
+	width: 90%;
+}
+
+button {
+	cursor:pointer;
+	width:100px;
+}
+
+.bottom-bloque, .bottom-next-round, .bottom-avance {
+	display: none;
+}
+
 @media only screen and (max-width: 600px) {
 
   body {
 	font-family: 'Cabin', sans-serif;
-	font-size: 10pt;
   }
 
   p.lyric {
-  	font-size: 10pt;
 	width: 100%;
   }
 
@@ -134,3 +191,38 @@ p.lyric, input {
 .g {
 	 color: #08ff00!important;
 }
+
+.r-bg {
+	background-color: #ee0000!important;
+}
+
+.y-bg {
+	background-color: #ffda00!important;
+}
+
+.g-bg {
+	background-color: #08ff00!important;
+}
+
+/* 
+#container{
+	position: relative;
+	width: 1000px;
+	height: 1000px;
+}
+
+#main-div, #info-div {
+	position: absolute;
+	background-color: red;
+}
+
+#info-div {
+	background-color: black;
+	top:10%;
+    left:10%;
+	width: 640px;
+	height: 480px;
+    transform:translate(-50%, -50%);
+	opacity: 0.5;
+	z-index: 10;
+} */

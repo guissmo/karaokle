@@ -262,7 +262,7 @@ function purifyString(str) {
 
 function wordArrayFromString(str) {
 	let n = stops[round].words;
-	const cleanString = str.trim().replaceAll("'","' ");
+	const cleanString = str.trim().replaceAll(/[’´’']/g," '");
 	const wordArray = cleanString.split(/[ ]+/);
 	let smallWordArray = [];
 	if(cleanString.length > 0){
@@ -337,6 +337,9 @@ function correctTheInput() {
 			}
 			if(realAnswer[i].length == 2 && realAnswer[i].charAt(1) == "'"){
 				userAnswer[i] = realAnswer[i];
+			}
+			if(initialsUsed){
+				userAnswer[i] = realAnswer[i].charAt(0) + userAnswer[i].slice(1, userAnswer[i].length);
 			}
 		}
 	}

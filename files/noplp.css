@@ -2,6 +2,7 @@ body {
 	font-family: 'Roboto Condensed', sans-serif;
 	font-size: 10pt;
 	color: #42444f;
+	background-color: #eaf7f6;
 }
 
 div#main {
@@ -125,7 +126,7 @@ p {
 	margin-bottom: 15px;
 }
 
-p.lyric, span.mots, input, span.inputPreview, span.bloque, .initiales {
+p.lyric, span.mots, input, span.inputPreview, span.bloque {
 	background: rgb(171,187,219);
 	background: linear-gradient(180deg, rgba(171,187,219,1) 0%, rgba(71,108,183,1) 20%, rgba(25,49,132,1) 50%, rgba(20,33,94,1) 80%, rgba(0,0,0,1) 100%);
 	color: white;
@@ -137,7 +138,7 @@ span.inputPreview, input {
 	margin-bottom:15px;
 }
 
-.bloque, .reveal, .next-round, .initiales {
+.next-round {
 	margin-top: 10px;
 	display: inline-block;
 	width: 400px;
@@ -147,9 +148,9 @@ span.inputPreview, input {
 	border: 0;
 }
 
-.initiales {
+/* .initiales {
 	background: rgb(255, 166, 0)!important;
-}
+} */
 
 /* .button-below {
 	border-radius: 50%;
@@ -166,9 +167,9 @@ span.inputPreview, input {
 	vertical-align: middle;
 } */
 
-.reveal {
+/* .reveal {
 	background: rgb(0, 78, 17)!important;
-}
+} */
 
 .next-round {
 	background: rgb(78, 0, 114)!important;
@@ -180,8 +181,11 @@ span.mots {
 	width: 150px;
 }
 
+.top-pane {
+	margin-top: 0;
+}
+
 span.round {
-	margin-top: 10px;
 	margin-left: 10px;
 	width: 125px;
 	display: none;
@@ -215,6 +219,10 @@ button {
 	display: none;
 }
 
+.continue, .reveal {
+	display: none;
+}
+
 #dummy, #bloq {
 	display: flex;
 	width: 90%;
@@ -224,12 +232,21 @@ button {
 .button-below {
 	font-family: 'Roboto Condensed', sans-serif;
 	border-radius: 25px;
-	height: 40px;
-	font-size: 16px;
+	height: 60px;
+	font-size: 24px;
 	vertical-align: middle;
 	border: 0;
 	box-shadow: none;
-	
+}
+
+.js-play {
+	margin-left: 2px;
+	margin-right: 2px;
+	flex: 1 1 auto;
+	background: rgb(206, 60, 193)!important;
+	color: white;
+	text-transform: uppercase;
+	width: 90%;
 }
 
 .small-button {
@@ -256,11 +273,14 @@ button {
 	color: white;
 }
 
-@media only screen and (max-width: 800px) {
+.share-button {
+	margin-top: 10px;
+	padding-left: 0;
+	padding-right: 0;
+	width: 90%;
+}
 
-  body {
-	font-family: 'Cabin', sans-serif;
-  }
+@media only screen and (max-width: 480px) {
 
   .noplp-box {
 	width: 90%;
@@ -336,3 +356,23 @@ button {
 	opacity: 0.5;
 	z-index: 10;
 } */
+
+.bottom-end-game {
+	width: 90%;
+	text-align:left;
+	background-color:rgb(55, 0, 100);
+	border-radius:20px;
+	color:white;
+	padding-left:20px;
+	padding-right:20px;
+	padding-bottom:10px;
+	padding-top:10px;
+	margin-bottom:20px;
+	font-size:16px;
+	text-transform:uppercase;
+	font-family: 'Roboto Condensed', sans-serif;
+}
+
+.top-pane {
+	margin-top: 10px;
+}

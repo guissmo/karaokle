@@ -14,23 +14,35 @@
         <!-- PJ-KP0fdtxc -->
         <!-- 0J3wIDAaLSU -->
         <!-- gzLvORW24tw -->
+        <!-- wfxt1SGWAI8 -->
 
 <!-- CONTAINER -->
 <!-- <div id="container"> -->
 
 <!-- <div id="main-div"> -->
 <center>
-    <h1>NOPLPdle</h1>
-		<div class="player js-player hidden" data-youtube-videoid="5RaxWDDo8As"></div>
+    <h1>NOPLPdle (alpha)</h1>
+    <div class="bottom-end-game comment-jouer">
+        <h1>Comment Jouer?</h1>
+        <h3>Écoutez la chanson.</h3>
+        <h3>Lorsque la musique s'arrête, remplissez les paroles suivantes.</h3>
+        <h3>Si vous êtes coincé, vous pouvez demander les initiales.</h3>
+        <h3>Après cinq tours, vous pouvez partager vos résultats.</h3>
+        <center>
+        <button class="js-play button-below" onclick="startGame()">COMMENCE</button><br>
+        </center>
+        </div>
+		<div class="player js-player" data-youtube-videoid="wfxt1SGWAI8"></div>
 		<div>
 		</div>
 <!-- <button class="js-play">Play</button> -->
 <!-- <button onclick="check()">Check</button> -->
-<!-- <button onclick="nextRound()">Correct</button> -->
+<!-- <button onclick="nextRound(this)">Correct</button> -->
 <!-- <button onclick="teleport()">Teleport</button> -->
 <!-- <br><br> -->
+
 <div class=".top-pane">
-<button class="js-play" onclick="startGame()">Play</button><br>
+<h3>Ça fait rire les oiseaux - La Compagnie Créole</h3>
 <span class="round round-1">1</span>
 <span class="round round-2">2</span>
 <span class="round round-3">3</span>
@@ -45,19 +57,17 @@
 <span class="inputPreview noplp-box hidden" onclick="enterAnswerMode()" style="opacity:0.2;">&nbsp;</span>
 </div>
     <div id="bloq">
-    <button class="button-below big-button">JE BLOQUE LES PAROLES!</button>
+    <button class="bloque button-below big-button" onclick="this.blur();bloqueLesParoles()">JE BLOQUE LES PAROLES!</button>
     </div>
     <div id="dummy">
-    <button class="button-below small-button">&#9664;&#x25C0;</button>
-    <button class="button-below med-button">LES INITIALES</button>
-    <button class="button-below small-button">&#9654;&#x25B6;</button>
+    <button class="button-below small-button back" onclick="teleport(this)">&#9664;&#x25C0;</button><button class="button-below med-button initiales" onclick="initiales(this)">LES INITIALES</button><button class="button-below med-button reveal" onclick="revealAnswer(this)">RÉVÉLER LA RÉPONSE</button><button class="button-below small-button avance" onclick="teleport(this)">&#9654;&#x25B6;</button><button class="button-below small-button continue" onclick="nextRound(this)">&#9654;&#x25B6;</button>
     </div>
 <div class="bottom-avance">
-<button class="reveal button-below" onclick="teleport()">&#9193;</button>
+<button class="reveal button-below" onclick="teleport(this)">&#9193;</button>
 </div>
 <div class="bottom-bloque">
 <button class="button-below" onclick="teleport()">&#9194;</button>
-<button class="bloque button-below" onclick="this.blur();bloqueLesParoles()">BLOQUE</button>
+<button>BLOQUE</button>
 <button class="initiales button-below" onclick="initiales()">L<u>&nbsp;</u> I<u>&nbsp;</u></button>
 </div>
 <div class="bottom-next-round">
@@ -65,8 +75,7 @@
 <button class="reveal button-below" onclick="revealAnswer()">Révéler la Réponse</button>
 </div>
 <br>
-</center> 
-<div class="bottom-end-game" style="display: none">
+<div class="real-bottom-end-game bottom-end-game hidden">
 </div>
 </div>
 
@@ -78,17 +87,27 @@
 <!-- CONTAINER  -->
 <!-- </div> -->
 
-    <!-- <div class="bottom-end-game" style="display: block;">
-Round 1: <font class="g">des</font> <font class="g">decibels</font> <font class="g">dans</font> <font class="g">ton</font> <font class="g">checkup</font>
+<div class="bottom-end-game hidden">
+<center>
+    <button class="button-below big-button share-button" onclick="shareshare(this);console.log(this)">PARTAGER</button>
+</center>
 <br>
-Round 2: <font class="g">le</font> <font class="g">tourbillon</font> <font class="g">d'</font> <font class="g">un</font> <font class="g">vent</font> <font class="g">de</font> <font class="g">folie</font>
-<br>
-Round 3: <font class="g">du</font> <font class="g">funk</font> <font class="g">au</font> <font class="g">plus</font> <font class="g">haut</font> <font class="g">t'</font> <font class="g">emmene</font>
-<br>
-Round 4: <font class="g">au</font> <font class="g">fond</font> <font class="g">de</font> <font class="g">ton</font> <font class="g">ennui</font> <font class="g">les</font> <font class="g">notes</font> <font class="g">d'</font> <font class="g">une</font> <font class="g">melodie</font> <font class="g">Une</font> <font class="g">musique</font> <font class="g">sans</font> <font class="r">accord</font> <font class="r">mineur</font>
-<br>
-Round 5: <font class="g">la</font> <font class="g">guitare</font> <font class="g">qui</font> <font class="r">choc</font> <font class="r">lalala</font> <font class="r"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></font> <font class="r"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></font> <font class="r"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></font> <font class="r"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></font> <font class="r"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></font> <font class="r"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></font> <font class="r"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></font> <font class="r"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></font> <font class="r"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></font> <font class="r"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></font> <font class="r"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></font> <font class="r"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></font> <font class="r"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></font>
-<br>
+<h3>SOMMAIRE</h3>
+<h4>🟨 ROUND 1</h4>
+On a trouvé <font class="g">des</font> <font class="g">decibels</font> <font class="g">dans</font> <font class="g">ton</font> <font class="g">checkup</font>
+<h4>🟩 ROUND 2</h4>
+Réveille en toi <font class="g">le</font> <font class="g">tourbillon</font> <font class="g">d'</font> <font class="g">un</font> <font class="g">vent</font> <font class="g">de</font> <font class="g">folie</font>
+<h4>🟩 ROUND 3</h4>
+La cadence <font class="g">du</font> <font class="g">funk</font> <font class="g">au</font> <font class="g">plus</font> <font class="g">haut</font> <font class="g">t'</font> <font class="g">emmene</font>
+<h4>🟥 ROUND 4</h4>
+Toi qui dessines <font class="g">au</font> <font class="g">fond</font> <font class="g">de</font> <font class="g">ton</font> <font class="g">ennui</font> <font class="g">les</font> <font class="g">notes</font> <font class="g">d'</font> <font class="g">une</font> <font class="g">melodie</font> <font class="g">Une</font> <font class="g">musique</font> <font class="g">sans</font> <font class="r">accord</font> <font class="r">mineur</font>
+<p style="color:#696969">Toi qui dessines au fond de ton ennui les notes d'une mélodie Une musique sans accords majeurs</p>
+<h4>🟥 ROUND 5</h4>
+Y a la basse qui frappe et <font class="g">la</font> <font class="g">guitare</font> <font class="g">qui</font> <font class="r">choc</font> <font class="r">lalala</font> <font class="r"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></font> <font class="r"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></font> <font class="r"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></font> <font class="r"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></font> <font class="r"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></font> <font class="r"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></font> <font class="r"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></font> <font class="r"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></font> <font class="r"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></font> <font class="r"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></font> <font class="r"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></font> <font class="r"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></font> <font class="r"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></font>
+<p style="color:#696969">Y a la basse qui frappe et la guitare qui choque Il y a le batteur qui s'éclate et toi qui tiens le choc</p>
+</center> 
+
+<!-- <br>
 <br>🟨🟩🟩🟥🟥
 <br>
 <br>Round 1: 🟩🟩🟩🟩🟩
@@ -100,7 +119,7 @@ Round 5: <font class="g">la</font> <font class="g">guitare</font> <font class="g
 
 		<script src="scripts/html5-youtube.min.js"></script>
         <script src="scripts/remove-diacritics.js"></script>
-        <script src="scripts/nuitdefolie.js"></script>
+        <script src="scripts/cafaitrire.js"></script>
         <script src="scripts/yt-controller.js"></script>
 		<script>
     </script>

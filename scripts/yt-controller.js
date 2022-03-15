@@ -3,7 +3,14 @@
 	var elVideos = document.querySelector('.js-videos');
 	var elPlay = document.querySelector('.js-play');
 
-	var player = window.player = youtube({ el:elPlayer });
+	var player = window.player = youtube({ el:elPlayer,
+	options: {
+		controls: 1,
+		disabledkb: 0,
+		showInfo: 0,
+		id: 'wfxt1SGWAI8',
+		modestbranding: 1
+	} });
 
 	player.addEventListener('canplay', function(event) {
 		elVideos.disabled = false;
@@ -22,7 +29,7 @@
 	});
 })();
 
-let lesinitiales = "L. I.";
+let lesinitiales = "LES INITIALES";
 let blank = `<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>`;
 const maxRounds = stops.length;
 stops.push({
@@ -41,7 +48,7 @@ function videoPlaying() {
 		inputBox.style.display = 'none';
 		updateInputPreview();
 		inputBox.blur();
-		bloqueBox.focus();
+		buttonBloque.focus();
 		inputBoxPreview.style.display = 'none';
 	}
 }
@@ -54,10 +61,15 @@ function refreshGUI() {
 	initialsUsed = false;
 	buttonInitiales.innerText = lesinitiales;
 
+	buttonInitiales.style.display = 'block';
+	buttonReveal.style.display = 'none';
+
 	updateInputPreview();
 
-	bottomBloque.style.display = 'none';
-	bottomNextRound.style.display = 'none';
+	buttonBloque.style.opacity = 0.2;
+	buttonNextRound.style.display = 'none';
+	buttonAdvance.style.display = 'block';
+	buttonBloque.style.opacity = 0.2;
 
 	for(i = 0; i < maxRounds; i++){
 		roundBox[i].classList.remove("round-active");
@@ -76,23 +88,28 @@ function refreshGUI() {
 	let newstr = stops[round].update[1];
 	syncData[lineno].text = newstr;
 
-	bottomAvance.style.display = 'block';
+	bottomAvance.style.opacity = 1;
+	buttonInitiales.style.opacity = 0.2;
+	buttonBack.style.opacity = 0.2;
 
 }
 
-function initiales() {
-	initialsUsed = true;
-	const realAnswer = wordArrayFromString(stops[round].answer);
-	ret = "";
-	for(i=0; i < realAnswer.length; i++){
-		ret += realAnswer[i].charAt(0);
+function initiales(button) {
+	if(window.getComputedStyle(button).getPropertyValue('opacity') == 1) {
+		initialsUsed = true;
+		const realAnswer = wordArrayFromString(stops[round].answer);
+		ret = "";
+		for(i=0; i < realAnswer.length; i++){
+			ret += realAnswer[i].charAt(0).toUpperCase();
+		}
+		buttonInitiales.innerText = ret;
+		updateInputPreview();
 	}
-	buttonInitiales.innerText = ret;
-	updateInputPreview();
 }
 
 function startGame() {
 	round = 0;
+	document.querySelector('.comment-jouer').style.display = 'none';
 	buttonPlay.classList.add("hidden");
 	gameRunning = true;
 	refreshGUI();
@@ -106,25 +123,31 @@ function startGame() {
 	player.play();
 }
 
-function nextRound() {
-	player.currentTime = stops[round].time - 1;
-	round = round + 1;
-	if(round == maxRounds){
-		endGame();
-		return;
+function nextRound(button) {
+	if(window.getComputedStyle(button).getPropertyValue('opacity') == 1){
+		player.currentTime = stops[round].time - 1;
+		round = round + 1;
+		if(round == maxRounds){
+			endGame();
+			return;
+		}
+		inputBox.value = "";
+		refreshGUI();
+		player.play();
 	}
-	inputBox.value = "";
-	refreshGUI();
-	player.play();
 }
 
 function endGame() {
 	gameRunning = false;
 	inputBox.style.display = 'none';
 	inputBoxPreview.style.display = 'none';
-	bottomAvance.style.display = 'none';
-	bottomBloque.style.display = 'none';
-	bottomNextRound.style.display = 'none';
+	buttonAdvance.style.opacity = 0.2;
+	buttonBloque.style.opacity = 0.2;
+	buttonNextRound.style.display = 'none';
+	
+	divBloque.style.display = 'none';
+	divDummy.style.display = 'none';
+
 	for(i = 0; i < syncData.length; i++){
 		let line = lines[i];
 		let [timeStr, text] = line.trim().split(']');
@@ -132,42 +155,104 @@ function endGame() {
 	}
 	for(i = 0; i < maxRounds; i++){
 		roundBox[i].style.opacity = 1;
+		roundBox[i].classList.remove("round-active");
+		roundBox[i].classList.add("round-inactive");
 	}
 	showSummary();
 	player.play();
 }
 
-const emojiBlack = "&#11035;";
-const emojiRed = "&#128997;";
-const emojiGreen = "&#129001;";
-const emojiYellow = "&#129000;";
+const htmlBlack = "&#11035;";
+const htmlRed = "&#128997;";
+const htmlGreen = "&#129001;";
+const htmlYellow = "&#129000;";
 
-let summaryAnswers = new Array(5).fill("Not registered.");
+const emojiBlack = String.fromCodePoint(0x1F532);
+const emojiRed = String.fromCodePoint(0x1F7E5);
+const emojiGreen = String.fromCodePoint(0x1F7E9);
+const emojiYellow = String.fromCodePoint(0x1F7E8);
+
+let summaryAnswers = new Array(5).fill("[sans réponse]");
 let summaryCorrectness = new Array(5).fill(-1);
 let summaryEmoji = [[],[],[],[],[]];
-function showSummary() {
-	bottomEndGame.style.display = 'block';
-	bottomEndGame.innerHTML = ""
+
+function share(btn) {
+
+	let emojiCorrectness = [emojiBlack,emojiBlack,emojiBlack,emojiBlack,emojiBlack];
 	for(i=0; i < 5; i++){
-		bottomEndGame.innerHTML += `Coupure 1: ${i + 1}: ${ summaryAnswers[i] }<br>`;
+		if(summaryCorrectness[i] == 0) emojiCorrectness[i] = emojiRed;
+		if(summaryCorrectness[i] == 1) emojiCorrectness[i] = emojiGreen;
+		if(summaryCorrectness[i] == 2) emojiCorrectness[i] = emojiYellow;
 	}
-	bottomEndGame.innerHTML += `<br>`;
+
+	let ret = "";
+	
+	ret += `NOPLPdle: ${ title } - ${ artiste }\n`;
 	for(i=0; i < 5; i++){
-		let emoji = emojiBlack;
-		if(summaryCorrectness[i] == 0) emoji = emojiRed;
-		if(summaryCorrectness[i] == 1) emoji = emojiGreen;
-		if(summaryCorrectness[i] == 2) emoji = emojiYellow;
-		bottomEndGame.innerHTML += `${ emoji }`;
-	}
-	bottomEndGame.innerHTML += `<br>`;
-	for(i=0; i < 5; i++){
-		oneLine = `Coupure ${ i+1 }: `;
-		for(j=0; j < summaryEmoji[i].length; j++){
-			oneLine += summaryEmoji[i][j];
+		ret += `${ emojiCorrectness[i] } Tour ${ i+1 }: `
+		if(stops[i].words <= 6){
+			ret += stops[i].teaser.toLocaleLowerCase() + ' ';
 		}
-		oneLine += "<br>"
-		bottomEndGame.innerHTML += `${ oneLine }`;
+		ret += `${ summaryEmoji[i].join('') } \n`;
 	}
+	ret += `https://guissmo.com/noplpdle.html\n`;
+	
+	navigator.clipboard.writeText(ret);
+	btn.innerText = "COPIÉ!";
+
+}
+
+function showSummary() {
+
+	let emojiCorrectness = [htmlBlack,htmlBlack,htmlBlack,htmlBlack,htmlBlack];
+	for(i=0; i < 5; i++){
+		if(summaryCorrectness[i] == 0) emojiCorrectness[i] = htmlRed;
+		if(summaryCorrectness[i] == 1) emojiCorrectness[i] = htmlGreen;
+		if(summaryCorrectness[i] == 2) emojiCorrectness[i] = htmlYellow;
+	}
+
+	let ret = "";
+
+	ret += `<center>`;
+	ret += `<button class="button-below big-button share-button" onclick="share(this)">PARTAGER</button>`;
+	ret += `</center>`;
+	ret += `<br>`;
+	ret += `<h3>SOMMAIRE</h3>`;
+	for(i=0; i < 5; i++){
+		ret += `<h4>${ emojiCorrectness[i] } TOUR ${ i+1 }</h4>`;
+		ret += `${ stops[i].update[1] } ${ summaryAnswers[i] }`;
+		if( emojiCorrectness[i] == htmlRed || emojiCorrectness[i] == htmlBlack ){
+			ret += `<p style="color:#696969">${ stops[i].update[1] } ${ stops[i].answer }</p>`;
+		}
+	}
+	ret += `</center>`;
+	
+	bottomEndGame.style.display = 'block';
+	bottomEndGame.classList.remove('hidden');
+	bottomEndGame.innerHTML = ret;
+
+	// bottomEndGame.style.display = 'block';
+	// bottomEndGame.innerHTML = ""
+	// for(i=0; i < 5; i++){
+	// 	bottomEndGame.innerHTML += `Coupure 1: ${i + 1}: ${ summaryAnswers[i] }<br>`;
+	// }
+	// bottomEndGame.innerHTML += `<br>`;
+	// for(i=0; i < 5; i++){
+	// 	let emoji = emojiBlack;
+	// 	if(summaryCorrectness[i] == 0) emoji = emojiRed;
+	// 	if(summaryCorrectness[i] == 1) emoji = emojiGreen;
+	// 	if(summaryCorrectness[i] == 2) emoji = emojiYellow;
+	// 	bottomEndGame.innerHTML += `${ emoji }`;
+	// }
+	// bottomEndGame.innerHTML += `<br>`;
+	// for(i=0; i < 5; i++){
+	// 	oneLine = `Coupure ${ i+1 }: `;
+	// 	for(j=0; j < summaryEmoji[i].length; j++){
+	// 		oneLine += summaryEmoji[i][j];
+	// 	}
+	// 	oneLine += "<br>"
+	// 	bottomEndGame.innerHTML += `${ oneLine }`;
+	// }
 }
 
 function purifyString(str) {
@@ -190,16 +275,20 @@ function wordArrayFromString(str) {
 }
 
 function updateInputPreview() {
-	const newArray = wordArrayFromString(inputBox.value);
+	let newArray = wordArrayFromString(inputBox.value);
 	const realAnswer = wordArrayFromString(stops[round].answer);
 	if(initialsUsed){
 		for(i = 0; i < realAnswer.length; i++){
 			if(realAnswer[i].length == 2 && realAnswer[i].charAt(1) == "'"){
 				newArray[i] = realAnswer[i];
 				console.log(2)
-			} else if(newArray[i] == blank){
-				newArray[i] = realAnswer[i].charAt(0) + newArray[i].replace("&nbsp;", "");
-				console.log(1)
+			} else if(newArray[i].includes(blank)){
+				console.log(newArray[i])
+				newArray[i] = realAnswer[i].charAt(0) + blank;
+				console.log(newArray[i])
+				console.log(realAnswer[i])
+				console.log(blank)
+				console.log(11111)
 			} else {
 				console.log(3)
 				newArray[i] = newArray[i].replace(newArray[i].charAt(0), realAnswer[i].charAt(0));
@@ -216,8 +305,10 @@ function enterAnswerMode() {
 		inputBox.style.display = 'block';
 		lyricBox.style.opacity = 0.8;
 		inputBox.style.opacity = 1;
-		bottomBloque.style.display = 'block';
-		bottomAvance.style.display = 'none';
+		buttonBloque.style.opacity = 1;
+		buttonInitiales.style.opacity = 1;
+		buttonBack.style.opacity = 1;
+		buttonAdvance.style.opacity = 0.2;
 		inputBox.focus();
 	}
 }
@@ -229,7 +320,7 @@ function exitAnswerMode() {
 	inputBox.style.display = 'none';
 	updateInputPreview();
 	inputBox.blur();
-	bloqueBox.focus();
+	buttonBloque.focus();
 }
 
 function correctTheInput() {
@@ -237,7 +328,13 @@ function correctTheInput() {
 	const realAnswer = wordArrayFromString(stops[round].answer);
 	if(initialsUsed){
 		for(i = 0; i < realAnswer.length; i++){
-			userAnswer[i] = userAnswer[i].replace(userAnswer[i].charAt(0), realAnswer[i].charAt(0));
+			if(userAnswer[i].includes(blank)){
+				if(initialsUsed){
+					userAnswer[i] = realAnswer[i].charAt(0) + blank;
+				}else{
+					userAnswer[i] = blank;
+				}
+			}
 			if(realAnswer[i].length == 2 && realAnswer[i].charAt(1) == "'"){
 				userAnswer[i] = realAnswer[i];
 			}
@@ -258,7 +355,10 @@ function outputResult(userAnswer, corrArray) {
 	let ret = [];
 	let wrong = false;
 	inputBoxPreview.style.opacity = 0.5;
-	bottomBloque.style.display = 'none';
+	buttonBloque.style.opacity = 0.2;
+	buttonAdvance.style.opacity = 0.2;
+	buttonNextRound.style.opacity = 0.2;
+	
 	for(i = 0; i < corrArray.length; i++){
 		if( corrArray[i] == 1 ){
 			ret.push( `<font class="g">${ userAnswer[i] }</font>` )
@@ -274,11 +374,21 @@ function outputResult(userAnswer, corrArray) {
 	if(!wrong) soundName = 'correct'
 	const audio = new Audio(`./files/woo_${ soundName }.mp3`);
 		audio.addEventListener('timeupdate', (event) => {
-			if(audio.currentTime >= 3.50 & !done){
+			if(audio.currentTime >= 3.50 & !done){//3.50
 				inputBoxPreview.innerHTML = ret.join(' ');
 				summaryAnswers[round] = inputBoxPreview.innerHTML;
 				inputBoxPreview.style.opacity = 1;
-				bottomNextRound.style.display = 'block';
+				buttonInitiales.style.opacity = 0.2;
+
+				buttonAdvance.style.display = 'none';
+				buttonNextRound.style.display = 'block';
+				buttonNextRound.style.opacity = 1;
+				buttonAdvance.style.opacity = 1;
+
+				buttonReveal.style.display = 'block';
+				buttonInitiales.style.opacity = 0.2;
+				buttonInitiales.style.display = 'none';
+
 				if(wrong){
 					buttonReveal.focus();
 					roundBox[round].classList.add("r-bg");
@@ -302,6 +412,8 @@ function outputResult(userAnswer, corrArray) {
 function bloqueLesParoles() {
 	if(waitingForAnswer) {
 		waitingForAnswer = false;
+		buttonInitiales.style.opacity = 0.2;
+		buttonBack.style.opacity = 0.2;
 		exitAnswerMode();
 		player.pause();
 		correctTheInput();
@@ -324,16 +436,21 @@ function check(el) {
 	return ;
 }
 
-function teleport() {
-	player.currentTime = stops[round].time - 5;
-	waitingForAnswer = false;
-	lyricBox.style.opacity = 1;
-	inputBox.style.display = 'none';
-	inputBoxPreview.style.opacity = 0.2;
-	updateInputPreview();
-	inputBox.blur();
-	bloqueBox.focus();
-	player.play();
+function teleport(button) {
+	console.log(button.style.opacity);
+	console.log(button.style.opacity);
+	console.log(window.getComputedStyle(button).getPropertyValue('opacity'));
+	if(window.getComputedStyle(button).getPropertyValue('opacity') == 1){
+		player.currentTime = stops[round].time - 5;
+		waitingForAnswer = false;
+		lyricBox.style.opacity = 1;
+		inputBox.style.display = 'none';
+		inputBoxPreview.style.opacity = 0.2;
+		updateInputPreview();
+		inputBox.blur();
+		buttonBloque.focus();
+		player.play();
+	}
 }
 
 let lines = lyrics.trim().split('\n');
@@ -366,14 +483,18 @@ const inputBox = document.querySelector('[name=input]')
 const inputBoxPreview = document.querySelector('.inputPreview')
 const motsBox = document.querySelector('.mots')
 const buttonPlay = document.querySelector('.js-play')
-const bloqueBox = document.querySelector('.bloque')
+const buttonBloque = document.querySelector('.bloque')
+const buttonAdvance = document.querySelector('.avance')
 const bottomBloque = document.querySelector('.bottom-bloque')
-const bottomNextRound = document.querySelector('.bottom-next-round')
-const bottomEndGame = document.querySelector('.bottom-end-game')
+const buttonNextRound = document.querySelector('.continue')
+const bottomEndGame = document.querySelector('.real-bottom-end-game')
 const bottomAvance = document.querySelector('.bottom-avance')
 const buttonReveal = document.querySelector('.reveal')
-const buttonNextRound = document.querySelector('.next-round')
+const divBloque = document.querySelector('[id=bloq]')
+const divDummy = document.querySelector('[id=dummy]')
+// const buttonNextRound = document.querySelector('.next-round')
 const buttonInitiales = document.querySelector('.initiales')
+const buttonBack = document.querySelector('.back')
 const roundBox = [
 	document.querySelector('.round-1'),
 	document.querySelector('.round-2'),

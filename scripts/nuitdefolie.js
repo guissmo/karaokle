@@ -1,3 +1,5 @@
+let title = "Nuit de Folie";
+let artiste = "Début de Soiree";
 let debugTimeAdjust = 0;
 let timeAdjust = 1;
 

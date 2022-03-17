@@ -3,6 +3,13 @@ let artiste = "Gerard Lenorman";
 let debugTimeAdjust = 0;
 let timeAdjust = 1;
 
+let isMobile = false;
+let lyrAdjust = 0;
+if (/Mobi|Android/i.test(navigator.userAgent)) {
+    lyrAdjust = 0.5;
+    isMobile = true;
+}
+
 const lyrics = `
 [00:00.00]...
 [00:06.98]Notre vieille Terre est une étoile
@@ -30,7 +37,7 @@ const lyrics = `
 [01:31.80]Je viens te chanter la ballade
 [01:35.17]La ballade des gens heureux
 [01:39.59]Il s'endort et tu le regardes
-[01:43.31]C'est ton enfant il te ressemble un peu
+[01:43.31]C'est un enfant il te ressemble un peu
 [01:47.11]Je viens lui chanter la ballade
 [01:50.52]La ballade des gens heureux
 [01:54.99]Je viens te chanter la ballade
@@ -56,35 +63,35 @@ const lyrics = `
 
 const stops = [
     {
-        time: 17.63 - 2.3+1,
+        time: 17.63 - 2.3+1-lyrAdjust,
         words: 2,
         answer: "la ballade",
         update: [3, "Je viens te chanter "],
         teaser: 'te chanter'
     },
     {
-        time: 37.57 - 2.8+1,
+        time: 37.57 - 2.8+1-lyrAdjust,
         words: 4,
         answer: "tu parles à dieu",
         update: [8, 'Mais tu dis "tu" quand'],
         teaser: 'quand'
     },
     {
-        time: 80.23 - 0.1,
+        time: 80.23 - 0.1-lyrAdjust,
         words: 6,
         answer: "dans ton petit jardin de banlieue",
         update: [20, "Toi qui as planté un arbre"],
         teaser: "un arbre"
     },
     {
-        time: 60+47.11-0.9,
+        time: 60+47.11-0.9-lyrAdjust,
         words: 8,
         answer: "un peu Je viens lui chanter la ballade",
-        update: [26, "C'est ton enfant il te ressemble"],
+        update: [26, "C'est un enfant il te ressemble"],
         teaser: 'ressemble'
     },
     {
-        time: 60*2+52.14-1.7,
+        time: 60*2+52.14-1.7-lyrAdjust,
         words: 10,
         answer: "cathédrale Comme un oiseau qui fait ce qu'il peut",
         update: [43, "Comme un chœur dans une"],

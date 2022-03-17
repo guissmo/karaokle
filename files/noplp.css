@@ -113,7 +113,7 @@ span.round {
 	margin-right: auto;
 	background: rgb(119, 119, 119);
 	color: rgb(255, 255, 255);
-	height: 24px;
+	height: 36px;
 	vertical-align: middle;
 }
 
@@ -148,9 +148,9 @@ span.inputPreview, input {
 	border: 0;
 }
 
-/* .initiales {
-	background: rgb(255, 166, 0)!important;
-} */
+.initiales, .reveal {
+	width: 100%;
+}
 
 /* .button-below {
 	border-radius: 50%;
@@ -212,11 +212,15 @@ input {
 
 button {
 	cursor:pointer;
-	width:100px;
+	/* width:100px; */
 }
 
 .bottom-bloque, .bottom-next-round, .bottom-avance {
 	display: none;
+}
+
+.bloque {
+	width: 100%;
 }
 
 .continue, .reveal {
@@ -224,9 +228,9 @@ button {
 }
 
 #dummy, #bloq {
-	display: flex;
-	width: 90%;
-	margin-top: 10px;
+	/* display: flex; */
+	/* width: 90%; */
+	/* margin-top: 10px; */
 }
 
 .button-below {
@@ -258,9 +262,10 @@ button {
 }
 
 .med-button {
-	margin-left: 5px;
-	margin-right: 5px;
+	/* margin-left: 5px; */
+	/* margin-right: 5px; */
 	flex: 1 1 auto;
+	width: 100%;
 	background: rgb(48, 180, 192)!important;
 	color: white;
 }
@@ -280,10 +285,10 @@ button {
 	width: 90%;
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 778px) {
 
   .noplp-box {
-	width: 90%;
+	width: 100%;
   }
 
   div#main {
@@ -297,9 +302,15 @@ button {
 	  width:100%;
   }
 
+  span.round {
+	vertical-align: middle;
+	min-height: 6vh;
+  }
+
   span.round-active {
 	display: inline-block;
 	opacity: 1;
+	font-size: 6vw;
   }
 
   span.round-inactive {

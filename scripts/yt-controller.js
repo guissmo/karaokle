@@ -8,7 +8,7 @@
 		controls: 1,
 		disabledkb: 0,
 		showInfo: 0,
-		id: 'wfxt1SGWAI8',
+		id: 'wfxt1SGWAI8', // TO REMOVE?
 		modestbranding: 1
 	} });
 
@@ -50,6 +50,7 @@ function videoPlaying() {
 		inputBox.blur();
 		buttonBloque.focus();
 		inputBoxPreview.style.display = 'none';
+		location.href="#video";
 	}
 }
 
@@ -262,7 +263,7 @@ function purifyString(str) {
 
 function wordArrayFromString(str) {
 	let n = stops[round].words;
-	const cleanString = str.trim().replaceAll(/[’´’']/g," '");
+	const cleanString = str.trim().replaceAll(/[’´’']/g,"' ");
 	const wordArray = cleanString.split(/[ ]+/);
 	let smallWordArray = [];
 	if(cleanString.length > 0){
@@ -305,11 +306,22 @@ function enterAnswerMode() {
 		inputBox.style.display = 'block';
 		lyricBox.style.opacity = 0.8;
 		inputBox.style.opacity = 1;
+
 		buttonBloque.style.opacity = 1;
 		buttonInitiales.style.opacity = 1;
 		buttonBack.style.opacity = 1;
+		
 		buttonAdvance.style.opacity = 0.2;
+
+		// location.href = "#while-answering";
+		// if(!isMobile){
+
 		inputBox.focus();
+		// } else {
+			// inputBoxPreview.style.display = 'block';
+			// inputBoxPreview.style.opacity = 1;
+			// inputBox.style.display = 'none';
+		// }
 	}
 }
 
@@ -444,14 +456,13 @@ function teleport(button) {
 	console.log(button.style.opacity);
 	console.log(window.getComputedStyle(button).getPropertyValue('opacity'));
 	if(window.getComputedStyle(button).getPropertyValue('opacity') == 1){
+		inputBox.blur();
 		player.currentTime = stops[round].time - 5;
 		waitingForAnswer = false;
-		lyricBox.style.opacity = 1;
 		inputBox.style.display = 'none';
-		inputBoxPreview.style.opacity = 0.2;
-		updateInputPreview();
-		inputBox.blur();
-		buttonBloque.focus();
+		// updateInputPreview();
+		inputBoxPreview.style.display = 'none';
+		// buttonBloque.focus();
 		player.play();
 	}
 }

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="Description" content="Enter your description here"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&display=swap" rel="stylesheet"> 
+<link href="https://fonts.googleapis.com/css2?family=Cabin:wght@500&display=swap" rel="stylesheet"> 
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="./files/noplp.css">
+<title>Title</title>
+</head>
+<body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+</body>
+
+<div class="container">
+
+<div class="row">
+    <div onclick="nextRound(this)" class="col-lg-12 text-center">
+        <h1>NOPLPdle (alpha)</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12 bottom-end-game comment-jouer tex-center">
+        <h1>Comment Jouer?</h1>
+        <h3>Écoutez la chanson.</h3>
+        <h3>Lorsque la musique s'arrête, remplissez les paroles suivantes.</h3>
+        <h3>Si vous êtes coincé, vous pouvez demander les initiales.</h3>
+        <h3>Après cinq tours, vous pouvez partager vos résultats.</h3>
+        <center>
+        <button class="js-play button-below" onclick="startGame()">COMMENCE</button><br>
+        </center>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12 text-center">
+    <h3>La ballade des gens heureux - Gerard Lenorman</h3>
+    </div>
+</div>
+
+<div id="video" class="row">
+    <div class="col-lg-12 text-center">
+    <div class="player js-player" data-youtube-videoid="F0nMq1R6v9g"></div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12 .top-pane text-center">
+        <span class="round round-1">1</span>
+        <span class="round round-2">2</span>
+        <span class="round round-3">3</span>
+        <span class="round round-4">4</span>
+        <span class="round round-5">5</span>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <p class="lyric noplp-box">
+        &nbsp;
+        </p>    
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <input class="y noplp-box hidden" name="input" value="" style="display:none;" onkeypress="check(this)" onblur="exitAnswerMode()"></input>
+        <span class="inputPreview noplp-box hidden" onclick="enterAnswerMode()" style="opacity:0.2;">&nbsp;</span>
+    </div>
+</div>
+
+<div id="bloq" class="row">
+    <div class="col-lg-12">
+        <button class="bloque button-below big-button" onclick="this.blur();bloqueLesParoles()">I LOCK IN THESE LYRICS!</button>
+    </div>
+</div>
+<br>
+<div id="dummy" class="row" style="display:flex">
+    <div style="min-width:80px">
+    <button class="button-below small-button back" onclick="teleport(this)">&#9664;&#x25C0;</button>
+    </div>
+    <div style="flex-grow:100">
+    <button class="button-below med-button initiales" onclick="initiales(this)">LES INITIALES</button><button class="button-below med-button reveal" onclick="revealAnswer(this)">RÉVÉLER</button>
+    </div>
+    <div style="min-width:80px">
+        <button class="button-below small-button avance" onclick="teleport(this)">&#9654;&#x25B6;</button><button class="button-below small-button continue" onclick="nextRound(this)">&#9654;&#x25B6;</button>
+    </div>
+    <div class="bottom-avance" style="min-width:50px">
+        <button class="reveal button-below" onclick="teleport(this)">&#9193;</button>
+    </div>
+</div>
+
+<div id="while-answering" style="min-height:40vh">
+&nbsp;
+</div>
+
+<div class="real-bottom-end-game bottom-end-game row hidden">
+</div>
+
+
+<!-- CONTAINER END -->
+</div>
+
+<script src="scripts/html5-youtube.min.js"></script>
+<script src="scripts/remove-diacritics.js"></script>
+<script src="scripts/laballade.js"></script>
+<script src="scripts/yt-controller.js"></script>
+
+
+</html>
